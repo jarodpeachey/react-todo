@@ -4,12 +4,17 @@ import '../style.css'
 class Todos extends Component {
    render() {
       return (
-         <div>
-            <div id="content">
-               <h1>Todos</h1>
-            </div>
-         </div>
+         <ul className="collection">
+            {
+               this.props.todos.map((todo) => (
+                  <li className="collection-item">
+                     <h5 className="m-0">{ todo.title }</h5>
+                  </li>
+               ))
+            }
+         </ul>
       )
+      
    }
 }
 

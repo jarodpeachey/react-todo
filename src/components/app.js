@@ -24,11 +24,10 @@ class App extends Component {
    }
 
    render() {
-      console.log(this.state);
       return (
          <div>
             <div id="content">
-               <Todos />
+               <Todos todos={this.state.todos}/>
             </div>
          </div>
       )
