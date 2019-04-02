@@ -1,8 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/app";
+import App from "./components/App";
 
-
-setInterval(function(){
-   ReactDOM.render(<App />, document.getElementById("app"));
-}, 2000)
+ReactDOM.render(<App />, document.getElementById("app"));
