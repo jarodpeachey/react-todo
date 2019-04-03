@@ -12,9 +12,10 @@ export class TodoItem extends Component {
    render() {
       const { id, title } = this.props.todo;
       return (
-         <li className="collection-item" style={this.getStyle()}>
+         <li className="collection-item position-relative" style={this.getStyle()}>
                <input type="checkbox" id={id} onChange={this.props.getCheckboxState.bind(this, id)}/>
-               <label className="display-inline" for={id}><p className="m-0 display-inline">{title}</p></label>
+               {title}
+               <div style={btnStyle} onClick={this.props.deleteTodo.bind(this, id)}>x</div>
          </li>
       )
    }
@@ -22,6 +23,19 @@ export class TodoItem extends Component {
 
 TodoItem.propTypes = {
    todo: PropTypes.object.isRequired
+}
+
+const btnStyle = {
+   position: "absolute",
+   top: "calc(50% - 12px)",
+   textAlign: "center",
+   lineHeight: "22px",
+   right: "10px",
+   height:"24px",
+   width: "24px",
+   background: "rgba(255, 0, 0, 0.6)",
+   borderRadius: "50%",
+   color: "white"
 }
 
 export default TodoItem

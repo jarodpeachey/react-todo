@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import '../style.css';
-import Todos from "./Todos"
+import Todos from "./Todos";
+import Header from '../layout/Header';
+import AddTodo from './AddTodo';
 
 class App extends Component {
    state = {
@@ -33,11 +35,26 @@ class App extends Component {
       })})
    }
 
+   deleteTodo = (id) => {
+      this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] })
+   }
+
+   addTodo = (title) => {
+      const newTodo = {
+         id: this.state.todos.slice(-1)[0].id + 1,
+         title,
+         completed: false
+      }
+      this.setState({ todos: [...this.state.todos, newTodo] })
+   }
+
    render() {
       return (
          <div>
-            <div id="content">
-               <Todos todos={this.state.todos} getCheckboxState={this.getCheckboxState}/>
+            <Header />
+            <AddTodo addTodo={this.addTodo}/>
+            <div className="container">
+               <Todos todos={this.state.todos} deleteTodo={this.deleteTodo} getCheckboxState={this.getCheckboxState}/>
             </div>
          </div>
       )
