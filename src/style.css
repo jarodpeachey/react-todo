@@ -3,9 +3,11 @@ body {
    color: #333333;
 }
 
-#content {
+.container {
    margin: 0 auto;
    width: 90%;
-   max-width: 760px;
+   max-width: 660px;
+   padding: 0;
+   padding-bottom: 20px;
 }
 
