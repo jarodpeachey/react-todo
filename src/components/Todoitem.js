@@ -10,7 +10,7 @@ export class TodoItem extends Component {
    }
 
    render() {
-      const { id, title  } = this.props.todo;
+      const { id, title } = this.props.todo;
       return (
          <li className="collection-item" style={this.getStyle()}>
                <input type="checkbox" id={id} onChange={this.props.getCheckboxState.bind(this, id)}/>
