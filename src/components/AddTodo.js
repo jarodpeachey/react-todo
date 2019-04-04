@@ -20,7 +20,7 @@ class AddTodo extends Component {
          <div className="container">
             <form onSubmit={this.addTodo} className="mb-1">
                <div className="input-group">
-                  <label><h4 class="mb-0">Add Todo</h4></label>
+                  <label><h4 className="mb-0">Add Todo</h4></label>
                   <input type="text" className="full-width" placeholder="Add todo..." name="title" value={this.state.title} onChange={this.onChange}/>
                </div>
                <input className="success full-width button" type="submit" value="Add Todo" />

@@ -5,26 +5,16 @@ import Todos from "./Todos";
 import Header from './layout/Header';
 import AddTodo from './AddTodo';
 import About from './layout/About';
+import axios from 'axios';
 
 class App extends Component {
    state = {
-      todos: [
-         {
-            id: 1,
-            title: 'Take out the trash',
-            completed: false
-         },
-         {
-            id: 2,
-            title: 'Walk the dogs',
-            completed: false
-         },
-         {
-            id: 3,
-            title: 'Do the dishes',
-            completed: false
-         }
-      ]
+      todos: []
+   }
+
+   componentDidMount() {
+      axios.get('localhost:8082/todos')
+         .then(res => console.log(res.data))
    }
 
    getCheckboxState = (id) => {

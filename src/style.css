@@ -11,3 +11,7 @@ body {
    padding-bottom: 20px;
 }
 
+.menu-item:hover a {
+   color: rgb(85, 85, 85) !important;
+}
+

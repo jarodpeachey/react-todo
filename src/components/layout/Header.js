@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function Header () {
    return (
       <div className="navbar bg-primary">
-         <div className="navbar-content">
+         <div className="navbar-content" style={navbarStyle}>
             <div className="navbar-left">
                <h1 className="m-0">Todo List</h1>
             </div>
@@ -21,6 +21,10 @@ function Header () {
          </div>
       </div>
    )
+}
+
+const navbarStyle = {
+   color: 'white',
 }
 
 export default Header;
