@@ -17,7 +17,7 @@ export default class Root extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8082/todos?_limit=10')
+    axios.get('https://react-todo-api-file.herokuapp.com/todos?_limit=10')
       .then(res => this.setState({ todos: res.data }));
   }
 
@@ -33,7 +33,7 @@ export default class Root extends Component {
        }
      });
 
-     axios.put(`http://localhost:8082/todos/${id}`, data)
+     axios.put(`https://react-todo-api-file.herokuapp.com/todos/${id}`, data)
        .then(res => this.setState({
          todos: this.state.todos.map((todo) => {
            if (todo.id === id) {
@@ -46,7 +46,7 @@ export default class Root extends Component {
    }
 
    deleteTodo = (id) => {
-     axios.delete(`http://localhost:8082/todos/${id}`)
+     axios.delete(`https://react-todo-api-file.herokuapp.com/todos/${id}`)
        .then(res => this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] }));
    }
 
@@ -61,7 +61,7 @@ export default class Root extends Component {
        completed: false,
      };
 
-     axios.post('http://localhost:8082/todos', data)
+     axios.post('https://react-todo-api-file.herokuapp.com/todos', data)
        .then(res => this.setState({
          todos:
          [...this.state.todos, res.data],
