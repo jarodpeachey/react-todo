@@ -11,10 +11,10 @@ export class TodoItem extends Component {
      const { id, title } = this.props.todo;
      return (
        <li className="collection-item position-relative" style={this.getStyle()}>
-          <input type="checkbox" id={id} checked={!!this.props.todo.completed} onChange={this.props.getCheckboxState.bind(this, id)} />
-          {title}
-          <div style={btnStyle} onClick={this.props.deleteTodo.bind(this, id)}>x</div>
-        </li>
+         <input type="checkbox" id={id} checked={!!this.props.todo.completed} onChange={this.props.getCheckboxState.bind(this, id)} />
+         {title}
+         <div style={btnStyle} onClick={this.props.deleteTodo.bind(this, id)}>x</div>
+       </li>
      );
    }
 }

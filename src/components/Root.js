@@ -107,8 +107,8 @@ export default class Root extends Component {
                <React.Fragment>
                  <AddTodo addTodo={this.addTodo} />
                  <div className="container">
-                    <Todos todos={this.state.todos} deleteTodo={this.deleteTodo} getCheckboxState={this.getCheckboxState} />
-                  </div>
+                   <Todos todos={this.state.todos} deleteTodo={this.deleteTodo} getCheckboxState={this.getCheckboxState} />
+                 </div>
 
                </React.Fragment>
              )}
