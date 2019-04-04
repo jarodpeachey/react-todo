@@ -23,6 +23,7 @@ export default class Root extends Component {
 
    getCheckboxState = (id) => {
      let data;
+
      this.state.todos.map((todo) => {
        if (todo.id === id) {
          data = {
@@ -42,12 +43,30 @@ export default class Root extends Component {
 
            return todo;
          }),
-       }));
+       }))
+       .catch((err) => {
+         if (confirm('You are offline. Any changes you make will not be saved.  Would you like to continue anyway?')) {
+           this.setState({
+             todos: this.state.todos.map((todo) => {
+               if (todo.id === id) {
+                 todo.completed = !todo.completed;
+               }
+
+               return todo;
+             }),
+           });
+         }
+       });
    }
 
    deleteTodo = (id) => {
      axios.delete(`https://react-todo-api-file.herokuapp.com/todos/${id}`)
-       .then(res => this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] }));
+       .then(res => this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] }))
+       .catch((err) => {
+         if (confirm('You are offline.  Do you want to continue?  All changes will not be saved')) {
+           this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] });
+         }
+       });
    }
 
    addTodo = (title) => {
@@ -65,30 +84,38 @@ export default class Root extends Component {
        .then(res => this.setState({
          todos:
          [...this.state.todos, res.data],
-       }));
+       }))
+       .catch((err) => {
+         if (confirm('You are offline.  Any changes you make will not be saved.  Would you like to continue anyway?')) {
+           this.setState({
+             todos:
+            [...this.state.todos, res.data],
+           });
+         }
+       });
    }
 
    render() {
      return (
        <Router>
-          <div>
-             <Header />
-             <Route
-                exact
-                path="/"
-                render={props => (
-  <React.Fragment>
-                    <AddTodo addTodo={this.addTodo} />
-                    <div className="container">
-                       <Todos todos={this.state.todos} deleteTodo={this.deleteTodo} getCheckboxState={this.getCheckboxState} />
-                     </div>
+         <div>
+           <Header />
+           <Route
+             exact
+             path="/"
+             render={props => (
+               <React.Fragment>
+                 <AddTodo addTodo={this.addTodo} />
+                 <div className="container">
+                    <Todos todos={this.state.todos} deleteTodo={this.deleteTodo} getCheckboxState={this.getCheckboxState} />
+                  </div>
 
-                  </React.Fragment>
-)}
-               />
-             <Route path="/about" component={About} />
-           </div>
-        </Router>
+               </React.Fragment>
+             )}
+           />
+           <Route path="/about" component={About} />
+         </div>
+       </Router>
      );
    }
 }
