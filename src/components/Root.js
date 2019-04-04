@@ -89,7 +89,7 @@ export default class Root extends Component {
          if (confirm('You are offline.  Any changes you make will not be saved.  Would you like to continue anyway?')) {
            this.setState({
              todos:
-            [...this.state.todos, res.data],
+            [...this.state.todos, data],
            });
          }
        });
