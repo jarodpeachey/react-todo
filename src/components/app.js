@@ -19,19 +19,12 @@ class App extends Component {
 
    getCheckboxState = (id) => {
       let data;
-      let checked;
       this.state.todos.map(todo => {
-         if(todo.completed) {
-            checked = true
-         } else {
-            checked = false
-         }
          if (todo.id === id) {
             data = {
                id: todo.id,
                title: todo.title,
-               completed: !todo.completed,
-               checked: checked
+               completed: !todo.completed
             }
          }
       })
@@ -59,8 +52,7 @@ class App extends Component {
       // }
       let data = {
          title,
-         completed: false,
-         checked: false
+         completed: false
       }
 
       axios.post('http://localhost:8082/todos', data)
