@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import '../style.css';
 import Todos from "./Todos";
-import Header from '../layout/Header';
+import Header from './layout/Header';
 import AddTodo from './AddTodo';
+import About from './layout/About';
 
 class App extends Component {
    state = {
@@ -50,13 +52,21 @@ class App extends Component {
 
    render() {
       return (
-         <div>
-            <Header />
-            <AddTodo addTodo={this.addTodo}/>
-            <div className="container">
-               <Todos todos={this.state.todos} deleteTodo={this.deleteTodo} getCheckboxState={this.getCheckboxState}/>
+         <Router>
+            <div>
+               <Header />
+               <Route exact path="/" render={props => (
+                  <React.Fragment>
+                     <AddTodo addTodo={this.addTodo}/>
+                     <div  className="container">
+                        <Todos todos={this.state.todos} deleteTodo={this.deleteTodo} getCheckboxState={this.getCheckboxState}/>
+                     </div>
+                     
+                  </React.Fragment>
+               )} />
+               <Route path="/about" component={About} />
             </div>
-         </div>
+         </Router>  
       )
    }
 }
