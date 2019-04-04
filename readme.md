@@ -6,7 +6,11 @@ A simple todo app introducing React to you
       
 
 ## Start the development server
-      $ npm run start
+      $ npm run dev
+
+
+## Start json-server
+      $ npm start
       
 
 ## Build for production
