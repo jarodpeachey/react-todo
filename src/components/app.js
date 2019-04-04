@@ -13,31 +13,59 @@ class App extends Component {
    }
 
    componentDidMount() {
-      axios.get('localhost:8082/todos')
-         .then(res => console.log(res.data))
+      axios.get('http://localhost:8082/todos?_limit=10')
+         .then(res => this.setState({ todos: res.data }))
    }
 
    getCheckboxState = (id) => {
-      this.setState({ todos: this.state.todos.map(todo => {
+      let data;
+      let checked;
+      this.state.todos.map(todo => {
+         if(todo.completed) {
+            checked = true
+         } else {
+            checked = false
+         }
+         if (todo.id === id) {
+            data = {
+               id: todo.id,
+               title: todo.title,
+               completed: !todo.completed,
+               checked: checked
+            }
+         }
+      })
+
+      axios.put(`http://localhost:8082/todos/${id}`, data)
+         .then(res => this.setState({ todos: this.state.todos.map(todo => {
          if (todo.id === id) {
             todo.completed = !todo.completed
          }
 
          return todo;
-      })})
+      })}))
    }
 
    deleteTodo = (id) => {
-      this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] })
+      axios.delete(`http://localhost:8082/todos/${id}`)
+      .then(res => this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] }))
    }
 
    addTodo = (title) => {
-      const newTodo = {
-         id: this.state.todos.slice(-1)[0].id + 1,
+      // const newTodo = {
+      //    id: this.state.todos.slice(-1)[0].id + 1,
+      //    title,
+      //    completed: false
+      // }
+      let data = {
          title,
-         completed: false
+         completed: false,
+         checked: false
       }
-      this.setState({ todos: [...this.state.todos, newTodo] })
+
+      axios.post('http://localhost:8082/todos', data)
+         .then(res => this.setState({ todos: 
+         [...this.state.todos, res.data] }))
    }
 
    render() {

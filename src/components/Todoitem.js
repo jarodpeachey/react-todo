@@ -5,7 +5,7 @@ export class TodoItem extends Component {
    getStyle = () => {
       return {
          textDecoration: this.props.todo.completed ? 'line-through' : 'none',
-         backgroundColor: this.props.todo.completed ? '#f3f3f3': 'inherit'
+         backgroundColor: this.props.todo.completed ? '#f3f3f3': 'inherit',
       }
    }
 
@@ -13,7 +13,7 @@ export class TodoItem extends Component {
       const { id, title } = this.props.todo;
       return (
          <li className="collection-item position-relative" style={this.getStyle()}>
-               <input type="checkbox" id={id} onChange={this.props.getCheckboxState.bind(this, id)}/>
+               <input type="checkbox" id={id} checked={this.props.todo.completed ? true : false} onChange={this.props.getCheckboxState.bind(this, id)}/>
                {title}
                <div style={btnStyle} onClick={this.props.deleteTodo.bind(this, id)}>x</div>
          </li>

@@ -1,8 +1,10 @@
 {
-   "todos": [
-      {
-         "id": 1,
-         "title": "Do the dishes"
-      }
-   ]
+  "todos": [
+    {
+      "id": 1,
+      "title": "Todo",
+      "completed": true,
+      "checked": false
+    }
+  ]
 }

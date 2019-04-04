@@ -11,7 +11,7 @@ class Todos extends Component {
       <ul className="collection spaced">
         {
           this.props.todos.map(todo => (
-            <TodoItem key={todo.id} todo={todo} getCheckboxState={this.props.getCheckboxState} deleteTodo={this.props.deleteTodo} />
+            <TodoItem key={todo.id} todo={todo} getCheckboxState={this.props.getCheckboxState} deleteTodo={this.props.deleteTodo}/>
           ))
         }
       </ul>
