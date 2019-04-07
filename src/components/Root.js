@@ -17,105 +17,132 @@ export default class Root extends Component {
   }
 
   componentDidMount() {
-    axios.get('https://react-todo-api-file.herokuapp.com/todos?_limit=10')
-      .then(res => this.setState({ todos: res.data }));
+    axios
+      .get('https://react-todo-api-file.herokuapp.com/todos?_limit=10')
+      .then((res) => this.setState({ todos: res.data }));
   }
 
-   getCheckboxState = (id) => {
-     let data;
+  getCheckboxState = (id) => {
+    let data;
 
-     this.state.todos.map((todo) => {
-       if (todo.id === id) {
-         data = {
-           id: todo.id,
-           title: todo.title,
-           completed: !todo.completed,
-         };
-       }
-     });
+    this.state.todos.map((todo) => {
+      if (todo.id === id) {
+        data = {
+          id: todo.id,
+          title: todo.title,
+          completed: !todo.completed,
+        };
+      }
+    });
 
-     axios.put(`https://react-todo-api-file.herokuapp.com/todos/${id}`, data)
-       .then(res => this.setState({
-         todos: this.state.todos.map((todo) => {
-           if (todo.id === id) {
-             todo.completed = !todo.completed;
-           }
+    axios
+      .put(`https://react-todo-api-file.herokuapp.com/todos/${id}`, data)
+      .then((res) =>
+        this.setState({
+          todos: this.state.todos.map((todo) => {
+            if (todo.id === id) {
+              todo.completed = !todo.completed;
+            }
 
-           return todo;
-         }),
-       }))
-       .catch((err) => {
-         if (confirm('You are offline. Any changes you make will not be saved.  Would you like to continue anyway?')) {
-           this.setState({
-             todos: this.state.todos.map((todo) => {
-               if (todo.id === id) {
-                 todo.completed = !todo.completed;
-               }
+            return todo;
+          }),
+        })
+      )
+      .catch((err) => {
+        if (
+          confirm(
+            'You are offline. Any changes you make will not be saved.  Would you like to continue anyway?'
+          )
+        ) {
+          this.setState({
+            todos: this.state.todos.map((todo) => {
+              if (todo.id === id) {
+                todo.completed = !todo.completed;
+              }
 
-               return todo;
-             }),
-           });
-         }
-       });
-   }
+              return todo;
+            }),
+          });
+        }
+      });
+  };
 
-   deleteTodo = (id) => {
-     axios.delete(`https://react-todo-api-file.herokuapp.com/todos/${id}`)
-       .then(res => this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] }))
-       .catch((err) => {
-         if (confirm('You are offline.  Do you want to continue?  All changes will not be saved')) {
-           this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] });
-         }
-       });
-   }
+  deleteTodo = (id) => {
+    axios
+      .delete(`https://react-todo-api-file.herokuapp.com/todos/${id}`)
+      .then((res) =>
+        this.setState({
+          todos: [...this.state.todos.filter((todo) => todo.id !== id)],
+        })
+      )
+      .catch((err) => {
+        if (
+          confirm(
+            'You are offline.  Do you want to continue?  All changes will not be saved'
+          )
+        ) {
+          this.setState({
+            todos: [...this.state.todos.filter((todo) => todo.id !== id)],
+          });
+        }
+      });
+  };
 
-   addTodo = (title) => {
-     // const newTodo = {
-     //    id: this.state.todos.slice(-1)[0].id + 1,
-     //    title,
-     //    completed: false
-     // }
-     const data = {
-       title,
-       completed: false,
-     };
+  addTodo = (title) => {
+    // const newTodo = {
+    //    id: this.state.todos.slice(-1)[0].id + 1,
+    //    title,
+    //    completed: false
+    // }
+    const data = {
+      title,
+      completed: false,
+    };
 
-     axios.post('https://react-todo-api-file.herokuapp.com/todos', data)
-       .then(res => this.setState({
-         todos:
-         [...this.state.todos, res.data],
-       }))
-       .catch((err) => {
-         if (confirm('You are offline.  Any changes you make will not be saved.  Would you like to continue anyway?')) {
-           this.setState({
-             todos:
-            [...this.state.todos, data],
-           });
-         }
-       });
-   }
+    axios
+      .post('https://react-todo-api-file.herokuapp.com/todos', data)
+      .then((res) =>
+        this.setState({
+          todos: [...this.state.todos, res.data],
+        })
+      )
+      .catch((err) => {
+        if (
+          confirm(
+            'You are offline.  Any changes you make will not be saved.  Would you like to continue anyway?'
+          )
+        ) {
+          this.setState({
+            todos: [...this.state.todos, data],
+          });
+        }
+      });
+  };
 
-   render() {
-     return (
-       <Router>
-         <div>
-           <Header />
-           <Route
-             exact
-             path="/"
-             render={props => (
-               <React.Fragment>
-                 <AddTodo addTodo={this.addTodo} />
-                 <div className="container">
-                   <Todos todos={this.state.todos} deleteTodo={this.deleteTodo} getCheckboxState={this.getCheckboxState} />
-                 </div>
-
-               </React.Fragment>
-             )}
-           />
-           <Route path="/about" component={About} />
-         </div>
-       </Router>
-     );
-   }
+  render() {
+    return (
+      <Router>
+        <div>
+          <Header />
+          <Route
+            exact
+            path="/"
+            render={(props) => (
+              <React.Fragment>
+                <AddTodo addTodo={this.addTodo} />
+                <div className="container">
+                  <Todos
+                    todos={this.state.todos}
+                    deleteTodo={this.deleteTodo}
+                    getCheckboxState={this.getCheckboxState}
+                  />
+                </div>
+              </React.Fragment>
+            )}
+          />
+          <Route path="/about" component={About} />
+        </div>
+      </Router>
+    );
+  }
 }
